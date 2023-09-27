@@ -52,7 +52,7 @@ namespace Database.Commands {
 		}
 
 		public virtual void AddTuple(TKey key, TValue tuple, bool isCombinable, bool autoIncrement, CCallbacks.GenericTupleCallback<TKey> callback) {
-			StoreAndExecute(new AddTuple<TKey, TValue>(key, tuple, autoIncrement, callback) { IsCombinable = isCombinable });
+			StoreAndExecute(new AddTokeiTuple<TKey, TValue>(key, tuple, autoIncrement, callback) { IsCombinable = isCombinable });
 		}
 
 		public void AddTuple(TKey key, TValue tuple) {
@@ -60,7 +60,7 @@ namespace Database.Commands {
 		}
 
 		public virtual void AddTuple(TKey key, TValue tuple, CCallbacks.GenericTupleCallback<TKey> callback) {
-			StoreAndExecute(new AddTuple<TKey, TValue>(key, tuple, false, callback));
+			StoreAndExecute(new AddTokeiTuple<TKey, TValue>(key, tuple, false, callback));
 		}
 
 		public virtual void SetDico(TValue tupleParent, DbAttribute attributeTable, TValue tuple, DbAttribute attribute, object value, bool reversable = true) {
@@ -133,7 +133,7 @@ namespace Database.Commands {
 		}
 
 		public virtual void Delete(TKey key) {
-			StoreAndExecute(new DeleteTuple<TKey, TValue>(key));
+			StoreAndExecute(new DeleteTokeiTuple<TKey, TValue>(key));
 		}
 
 		public virtual void CopyTupleTo(TKey oldkey, TKey newKey) {

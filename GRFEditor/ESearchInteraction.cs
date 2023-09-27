@@ -188,7 +188,7 @@ namespace GRFEditor {
 						List<FileEntry> result;
 
 						if (search.Any(p => p.Contains("*") || p.Contains("?"))) {
-							IEnumerable<Tuple<string, string, FileEntry>> res = _grfHolder.FileTable.FastTupleAccessEntries;
+							IEnumerable<TokeiTuple<string, string, FileEntry>> res = _grfHolder.FileTable.FastTupleAccessEntries;
 
 							foreach (var query in search) {
 								if (query.Contains("*") || query.Contains("?")) {
@@ -253,12 +253,12 @@ namespace GRFEditor {
 
 						this.Dispatch(p => p._grfEntrySorter.SetOrder(WpfUtils.GetLastGetSearchAccessor(_items), WpfUtils.GetLastSortDirection(_items)));
 
-						List<Tuple<string, string, FileEntry>> entries = _grfHolder.FileTable.FastTupleAccessEntries;
+						List<TokeiTuple<string, string, FileEntry>> entries = _grfHolder.FileTable.FastTupleAccessEntries;
 						List<string> search = currentSearch.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 						List<FileEntry> result;
 
 						if (search.Any(p => p.Contains("*") || p.Contains("?"))) {
-							IEnumerable<Tuple<string, string, FileEntry>> res = entries.Where(p => p.Item1 == _searchSelectedPath);
+							IEnumerable<TokeiTuple<string, string, FileEntry>> res = entries.Where(p => p.Item1 == _searchSelectedPath);
 
 							foreach (var query in search) {
 								if (query.Contains("*") || query.Contains("?")) {

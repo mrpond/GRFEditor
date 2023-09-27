@@ -56,7 +56,7 @@ namespace GRFEditor {
 			"XDMessaging",
 			"ErrorManager",
 			"GrfToWpfBridge",
-			"System.Threading",
+			//"System.Threading",
 		};
 
 		public static string ComputeHash(byte[] data) {

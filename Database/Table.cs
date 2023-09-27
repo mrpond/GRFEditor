@@ -168,7 +168,7 @@ namespace Database {
 				if (EnableRawEvents) {
 					T2 tuple = _tuples[key];
 					tuple.Added = true;
-					Commands.StoreAndExecute(new AddTuple<T1, T2>(key, tuple, null) {IgnoreConflict = true});
+					Commands.StoreAndExecute(new AddTokeiTuple<T1, T2>(key, tuple, null) {IgnoreConflict = true});
 				}
 			}
 
@@ -208,7 +208,7 @@ namespace Database {
 						tuple.SetRawValue(attributes[i + attributeOffset], values[i]);
 					}
 
-					Commands.StoreAndExecute(new AddTuple<T1, T2>(key, tuple, null) {IgnoreConflict = true});
+					Commands.StoreAndExecute(new AddTokeiTuple<T1, T2>(key, tuple, null) {IgnoreConflict = true});
 					return;
 				}
 			}

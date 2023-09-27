@@ -11,7 +11,7 @@ namespace GRF.Core {
 	internal class QuickMergeHelper {
 		public static int MaximumFragmentedSpace = 20971520;
 		private readonly Container _grf;
-		private List<Tuple<uint, uint>> _freeSpace = new List<Tuple<uint, uint>>();
+		private List<TokeiTuple<uint, uint>> _freeSpace = new List<TokeiTuple<uint, uint>>();
 		private int _virtualSpaceAdded;
 
 		public QuickMergeHelper(Container container) {
@@ -21,7 +21,7 @@ namespace GRF.Core {
 		}
 
 		private uint? _getNextFreeIndex(FileEntry entry) {
-			Tuple<uint, uint> tup = _freeSpace.FirstOrDefault(p => p.Item2 > entry.TemporarySizeCompressedAlignment);
+			TokeiTuple<uint, uint> tup = _freeSpace.FirstOrDefault(p => p.Item2 > entry.TemporarySizeCompressedAlignment);
 
 			if (tup != null) {
 				uint offset = tup.Item1;
@@ -33,7 +33,7 @@ namespace GRF.Core {
 			return null;
 		}
 
-		private void _getNextFreeIndex(IList<Tuple<uint, uint>> freeSpace, ContainerEntry entry) {
+		private void _getNextFreeIndex(IList<TokeiTuple<uint, uint>> freeSpace, ContainerEntry entry) {
 			for (int i = 0, count = freeSpace.Count; i < count; i++) {
 				if (freeSpace[i].Item2 > entry.TemporarySizeCompressedAlignment) {
 					var tup = freeSpace[i];
@@ -47,7 +47,7 @@ namespace GRF.Core {
 		}
 
 		private void _calculateFreespace() {
-			_freeSpace = new List<Tuple<uint, uint>>();
+			_freeSpace = new List<TokeiTuple<uint, uint>>();
 
 			uint bufferLength;
 			List<FileEntry> sortedEntries = _grf.Table.Entries.Where(p => !p.Added).OrderBy(p => p.FileExactOffset).ToList();
@@ -57,7 +57,7 @@ namespace GRF.Core {
 			try {
 				if (indexMax > 0) {
 					if (sortedEntries[0].FileExactOffset > GrfHeader.StructSize) {
-						_freeSpace.Add(new Tuple<uint, uint>(GrfHeader.StructSize, sortedEntries[0].FileExactOffset - GrfHeader.StructSize));
+						_freeSpace.Add(new TokeiTuple<uint, uint>(GrfHeader.StructSize, sortedEntries[0].FileExactOffset - GrfHeader.StructSize));
 					}
 				}
 				for (int i = 0; i < indexMax - 1; i++) {
@@ -65,7 +65,7 @@ namespace GRF.Core {
 
 					if (endOffset != sortedEntries[i + 1].FileExactOffset && sortedEntries[i + 1].FileExactOffset > endOffset) {
 						bufferLength = sortedEntries[i + 1].FileExactOffset - endOffset;
-						_freeSpace.Add(new Tuple<uint, uint>(endOffset, bufferLength));
+						_freeSpace.Add(new TokeiTuple<uint, uint>(endOffset, bufferLength));
 					}
 				}
 			}
@@ -104,10 +104,10 @@ namespace GRF.Core {
 			if (_grf.Table.Entries.Count < 30) return true; // Always rewrite small GRFs
 			if (entriesAdded.Count > 500) return true;
 
-			List<Tuple<uint, uint>> freeSpace = new List<Tuple<uint, uint>>();
+			List<TokeiTuple<uint, uint>> freeSpace = new List<TokeiTuple<uint, uint>>();
 
 			for (int i = 0; i < _freeSpace.Count; i++) {
-				freeSpace.Add(new Tuple<uint, uint>(_freeSpace[i].Item1, _freeSpace[i].Item2));
+				freeSpace.Add(new TokeiTuple<uint, uint>(_freeSpace[i].Item1, _freeSpace[i].Item2));
 			}
 
 			foreach (FileEntry entry in entries) {
@@ -128,7 +128,7 @@ namespace GRF.Core {
 			return false;
 		}
 
-		private void _calculateVirtualFreespace(IList<Tuple<uint, uint>> freeSpace, ContainerEntry entry) {
+		private void _calculateVirtualFreespace(IList<TokeiTuple<uint, uint>> freeSpace, ContainerEntry entry) {
 			_getNextFreeIndex(freeSpace, entry);
 		}
 	}

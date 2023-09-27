@@ -135,7 +135,7 @@ namespace GRF.Hash {
 
 			stream.WriteByte(hashMethod);
 
-			var hashList = Hashes.Select(p => new Tuple<TkPath, byte[]>(p.Key, p.Value)).OrderBy(p => p.Item1.GetFullPath()).ToList();
+			var hashList = Hashes.Select(p => new TokeiTuple<TkPath, byte[]>(p.Key, p.Value)).OrderBy(p => p.Item1.GetFullPath()).ToList();
 
 			List<int> referenced = _compressDirectories(hashList);
 
@@ -176,7 +176,7 @@ namespace GRF.Hash {
 			table.Write(BitConverter.GetBytes(length), 0, 4);
 		}
 
-		private List<int> _compressDirectories(IList<Tuple<TkPath, byte[]>> hashList) {
+		private List<int> _compressDirectories(IList<TokeiTuple<TkPath, byte[]>> hashList) {
 			Directories = hashList.Select(p => _getHeadPath(p.Item1)).Distinct().ToList();
 			Directories = _explode(Directories);
 

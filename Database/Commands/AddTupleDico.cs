@@ -7,7 +7,7 @@ namespace Database.Commands {
 		private readonly CCallbacks.AddTupleDicoCallback<TKey, TValue> _callback;
 		private readonly bool _isModified;
 		private readonly Dictionary<TKey, TValue> _dico;
-		private readonly AddTuple<TKey, TValue> _propChanged;
+		private readonly AddTokeiTuple<TKey, TValue> _propChanged;
 		private readonly TKey _key;
 
 		public TKey ParentKey { get; private set; }
@@ -18,7 +18,7 @@ namespace Database.Commands {
 			_key = key;
 			_dico = (Dictionary<TKey, TValue>)tupleParent.GetRawValue(attributeTable.Index);
 			_isModified = tupleParent.Modified;
-			_propChanged = new AddTuple<TKey, TValue>(key, tuple, null);
+			_propChanged = new AddTokeiTuple<TKey, TValue>(key, tuple, null);
 			ParentKey = _tupleParent.GetKey<TKey>();
 		}
 

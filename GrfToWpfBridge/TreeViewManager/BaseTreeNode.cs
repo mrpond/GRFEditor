@@ -80,7 +80,7 @@ namespace GrfToWpfBridge.TreeViewManager {
 
 		public void UpdateDisplayEncoding() {
 			Header = EncodingService.DisplayEncoding.GetString(EncodingService.GetOldDisplayEncoding().GetBytes(Header));
-			List<Tuple<string, BaseTreeNode>> children = Children.ToList().Select(p => new Tuple<string, BaseTreeNode>(p.Key, p.Value)).ToList();
+			List<TokeiTuple<string, BaseTreeNode>> children = Children.ToList().Select(p => new TokeiTuple<string, BaseTreeNode>(p.Key, p.Value)).ToList();
 
 			Children.Clear();
 

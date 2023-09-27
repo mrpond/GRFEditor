@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace Database.Commands {
-	public class DeleteTuple<TKey, TValue> : ITableCommand<TKey, TValue>
+	public class DeleteTokeiTuple<TKey, TValue> : ITableCommand<TKey, TValue>
 		where TValue : Tuple {
 		private readonly TKey _key;
 		private readonly TupleCallback _callback;
@@ -9,7 +9,7 @@ namespace Database.Commands {
 
 		public delegate void TupleCallback(TKey key, TValue value, bool executed);
 
-		public DeleteTuple(TKey key, TupleCallback callback = null) {
+		public DeleteTokeiTuple(TKey key, TupleCallback callback = null) {
 			_key = key;
 			_callback = callback;
 			Key = key;

@@ -17,7 +17,7 @@ namespace GRF.Threading {
 			public int To;
 		}
 
-		//public List<Tuple<int, int>> Blocks = new List<Tuple<int, int>>();
+		//public List<TokeiTuple<int, int>> Blocks = new List<TokeiTuple<int, int>>();
 		private readonly int _bufferSize;
 
 		public StreamReadBlockInfo(int bufferSize) {

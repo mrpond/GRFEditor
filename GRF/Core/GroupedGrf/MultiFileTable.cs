@@ -91,7 +91,7 @@ namespace GRF.Core.GroupedGrf {
 			get { throw GrfExceptions.__UnsupportedAction.Create(); }
 		}
 
-		public override sealed List<Tuple<string, string, FileEntry>> FastTupleAccessEntries {
+		public override sealed List<TokeiTuple<string, string, FileEntry>> FastTupleAccessEntries {
 			get { throw GrfExceptions.__UnsupportedAction.Create(); }
 		}
 

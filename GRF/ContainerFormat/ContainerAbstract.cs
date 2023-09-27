@@ -289,7 +289,7 @@ namespace GRF.ContainerFormat {
 		/// Gets the file compressed sizes, by their extension.
 		/// </summary>
 		/// <returns>A table with all the extensions and their overall sizes in the container.</returns>
-		internal List<Tuple<string, string>> GetFileCompressedSizes() {
+		internal List<TokeiTuple<string, string>> GetFileCompressedSizes() {
 			Dictionary<string, int> sizes = new Dictionary<string, int>();
 
 			foreach (var entry in Table.Entries) {
@@ -304,7 +304,7 @@ namespace GRF.ContainerFormat {
 				sizes[ext] += entry.SizeCompressed;
 			}
 
-			return sizes.OrderByDescending(p => p.Value).Select(keyPair => new Tuple<string, string>(keyPair.Key, Methods.FileSizeToString(keyPair.Value))).ToList();
+			return sizes.OrderByDescending(p => p.Value).Select(keyPair => new TokeiTuple<string, string>(keyPair.Key, Methods.FileSizeToString(keyPair.Value))).ToList();
 		}
 
 		private int _writeMetadata(Stream output, GrfHeader header, IEnumerable<FileEntry> entries, bool overwriteFlags = true) {

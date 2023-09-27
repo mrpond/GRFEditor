@@ -603,7 +603,7 @@ namespace GRF.Core {
 		/// Gets the size of all files in the GRF.
 		/// </summary>
 		/// <returns></returns>
-		public List<Tuple<string, string>> GetSizes() {
+		public List<TokeiTuple<string, string>> GetSizes() {
 			return _grf.GetFileCompressedSizes();
 		}
 

@@ -333,7 +333,7 @@ namespace Utilities.Extension {
 				toStream.Write(bytes, 0, dataRead);
 		}
 
-		public static HashSet<T> ToHashSet<T>(this IEnumerable<T> list) {
+		public static HashSet<T> TokeiToHashSet<T>(this IEnumerable<T> list) {
 			HashSet<T> set = new HashSet<T>();
 
 			foreach (var item in list) {

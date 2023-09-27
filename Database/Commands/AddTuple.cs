@@ -3,7 +3,7 @@ using Utilities;
 using Utilities.Commands;
 
 namespace Database.Commands {
-	public class AddTuple<TKey, TValue> : ITableCommand<TKey, TValue>, ICombinableCommand
+	public class AddTokeiTuple<TKey, TValue> : ITableCommand<TKey, TValue>, ICombinableCommand
 		where TValue : Tuple {
 		private readonly TValue _tuple;
 		private readonly bool _autoIncrement;
@@ -14,7 +14,7 @@ namespace Database.Commands {
 		public bool IgnoreConflict { get; set; }
 		public bool IsCombinable { get; set; }
 
-		internal AddTuple(TKey key, TValue tuple, bool autoIncrement, CCallbacks.GenericTupleCallback<TKey> callback) {
+		internal AddTokeiTuple(TKey key, TValue tuple, bool autoIncrement, CCallbacks.GenericTupleCallback<TKey> callback) {
 			_tuple = tuple;
 			_autoIncrement = autoIncrement;
 			_callback = callback;
@@ -22,7 +22,7 @@ namespace Database.Commands {
 			IsCombinable = true;
 		}
 
-		internal AddTuple(TKey key, TValue tuple, CCallbacks.GenericTupleCallback<TKey> callback) : this(key, tuple, false, callback) {
+		internal AddTokeiTuple(TKey key, TValue tuple, CCallbacks.GenericTupleCallback<TKey> callback) : this(key, tuple, false, callback) {
 		}
 
 		public TKey Key { get; private set; }

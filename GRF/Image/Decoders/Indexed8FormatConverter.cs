@@ -103,10 +103,10 @@ namespace GRF.Image.Decoders {
 				}
 			}
 			else {
-				Tuple<GrfColor, byte>[] colorIndexes = new Tuple<GrfColor, byte>[256];
+				TokeiTuple<GrfColor, byte>[] colorIndexes = new TokeiTuple<GrfColor, byte>[256];
 
 				for (int i = 0, size = ExistingPalette.Length / 4; i < size; i++) {
-					colorIndexes[i] = new Tuple<GrfColor, byte>(
+					colorIndexes[i] = new TokeiTuple<GrfColor, byte>(
 										 GrfColor.FromArgb(255, ExistingPalette[4 * i + 0],
 														   ExistingPalette[4 * i + 1],
 														   ExistingPalette[4 * i + 2]),
@@ -248,7 +248,7 @@ namespace GRF.Image.Decoders {
 			return newColors;
 		}
 
-		private byte _findClosestPaletteMatch(IList<Tuple<GrfColor, byte>> colorIndexes, byte r, byte g, byte b) {
+		private byte _findClosestPaletteMatch(IList<TokeiTuple<GrfColor, byte>> colorIndexes, byte r, byte g, byte b) {
 			if (_matchPaletteSearches.ContainsKey(r << 16 | g << 8 | b))
 				return _matchPaletteSearches[r << 16 | g << 8 | b];
 

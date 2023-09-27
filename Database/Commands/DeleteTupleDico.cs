@@ -5,7 +5,7 @@ namespace Database.Commands {
 		where TValue : Tuple {
 		private readonly TValue _tupleParent;
 		private readonly bool _isModified;
-		private readonly DeleteTuple<TKey, TValue> _propChanged;
+		private readonly DeleteTokeiTuple<TKey, TValue> _propChanged;
 		private readonly Dictionary<TKey, TValue> _table;
 
 		public TKey ParentKey { get; private set; }
@@ -16,7 +16,7 @@ namespace Database.Commands {
 			_tupleParent = tupleParent;
 			_isModified = tupleParent.Modified;
 			_table = (Dictionary<TKey, TValue>)tupleParent.GetRawValue(attributeTable.Index);
-			_propChanged = new DeleteTuple<TKey, TValue>(key);
+			_propChanged = new DeleteTokeiTuple<TKey, TValue>(key);
 			Key = key;
 			ParentKey = _tupleParent.GetKey<TKey>();
 		}

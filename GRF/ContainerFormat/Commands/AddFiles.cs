@@ -15,7 +15,7 @@ namespace GRF.ContainerFormat.Commands {
 		private readonly string[] _files;
 
 		private readonly string _grfPath;
-		private List<Tuple<string, string>> _foldersFilesPath = new List<Tuple<string, string>>(); // Left = correctedPathName, right = originalFileName
+		private List<TokeiTuple<string, string>> _foldersFilesPath = new List<TokeiTuple<string, string>>(); // Left = correctedPathName, right = originalFileName
 		private bool _processed;
 
 		public AddFiles(string grfPath, IEnumerable<string> filesPath, CCallbacks.AddFilesCallback callback) {
@@ -33,12 +33,12 @@ namespace GRF.ContainerFormat.Commands {
 		public void Execute(ContainerAbstract<TEntry> container) {
 			if (!_processed) {
 				foreach (string file in _files.Where(File.Exists)) {
-					_foldersFilesPath.Add(new Tuple<string, string>(EncodingService.CorrectPathExplode(GrfPath.Combine(_grfPath, Path.GetFileName(file))), file));
+					_foldersFilesPath.Add(new TokeiTuple<string, string>(EncodingService.CorrectPathExplode(GrfPath.Combine(_grfPath, Path.GetFileName(file))), file));
 				}
 
 				foreach (string directory in _files.Where(Directory.Exists)) {
 					string toReplace = Path.GetDirectoryName(directory) + "\\";
-					_foldersFilesPath.AddRange(Directory.GetFiles(directory, "*", SearchOption.AllDirectories).Select(p => new Tuple<string, string>(EncodingService.CorrectPathExplode(Path.Combine(_grfPath, p.ReplaceFirst(toReplace, ""))), p)));
+					_foldersFilesPath.AddRange(Directory.GetFiles(directory, "*", SearchOption.AllDirectories).Select(p => new TokeiTuple<string, string>(EncodingService.CorrectPathExplode(Path.Combine(_grfPath, p.ReplaceFirst(toReplace, ""))), p)));
 				}
 
 				_foldersFilesPath = _foldersFilesPath.Distinct(TupleComparer.Default).ToList();
@@ -47,7 +47,7 @@ namespace GRF.ContainerFormat.Commands {
 
 			List<string> newFolders = new List<string>();
 
-			foreach (Tuple<string, string> entry in _foldersFilesPath) {
+			foreach (TokeiTuple<string, string> entry in _foldersFilesPath) {
 				TEntry conflictEntry = container.Table.Add(entry.Item1, entry.Item2, true);
 
 				if (conflictEntry != null)
@@ -61,7 +61,7 @@ namespace GRF.ContainerFormat.Commands {
 		}
 
 		public void Undo(ContainerAbstract<TEntry> container) {
-			foreach (Tuple<string, string> entry in _foldersFilesPath) {
+			foreach (TokeiTuple<string, string> entry in _foldersFilesPath) {
 				container.Table.DeleteEntry(entry.Item1);
 			}
 
@@ -89,7 +89,7 @@ namespace GRF.ContainerFormat.Commands {
 
 		#region Nested type: TupleComparer
 
-		public sealed class TupleComparer : IEqualityComparer<Tuple<string, string>> {
+		public sealed class TupleComparer : IEqualityComparer<TokeiTuple<string, string>> {
 // ReSharper disable StaticFieldInGenericType
 			private static readonly TupleComparer _instance = new TupleComparer();
 // ReSharper restore StaticFieldInGenericType
@@ -98,13 +98,13 @@ namespace GRF.ContainerFormat.Commands {
 				get { return _instance; }
 			}
 
-			#region IEqualityComparer<Tuple<string,string>> Members
+			#region IEqualityComparer<TokeiTuple<string,string>> Members
 
-			public bool Equals(Tuple<string, string> x, Tuple<string, string> y) {
+			public bool Equals(TokeiTuple<string, string> x, TokeiTuple<string, string> y) {
 				return x.Item1 == y.Item1;
 			}
 
-			public int GetHashCode(Tuple<string, string> obj) {
+			public int GetHashCode(TokeiTuple<string, string> obj) {
 				return obj.Item1.GetHashCode();
 			}
 

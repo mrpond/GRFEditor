@@ -22,7 +22,7 @@ namespace GRF.IO {
 	public class TableDictionary<TEntry> : Dictionary<string, TEntry> where TEntry : ContainerEntry {
 		private List<KeyValuePair<string, TEntry>> _fastAccessEntries;
 		private List<TEntry> _fastEntries;
-		private List<Tuple<string, string, TEntry>> _fastTupleAccessEntries;
+		private List<TokeiTuple<string, string, TEntry>> _fastTupleAccessEntries;
 		private TkDictionary<string, List<EntrySearchNode<TEntry>>> _directoryStructure = new TkDictionary<string, List<EntrySearchNode<TEntry>>>();
 		private HashSet<string> _files;
 		private HashSet<string> _directories;
@@ -155,11 +155,11 @@ namespace GRF.IO {
 		}
 
 		// Slowest request to the file table
-		public List<Tuple<string, string, TEntry>> FastTupleAccessEntries {
+		public List<TokeiTuple<string, string, TEntry>> FastTupleAccessEntries {
 			get {
 				if (_fastTupleAccessEntries == null) {
 					_fastTupleAccessEntries = Values.Where(p => (p.Modification & Modification.Removed) != Modification.Removed).
-						Select(p => new Tuple<string, string, TEntry>(GrfPath.GetDirectoryName(p.RelativePath), Path.GetFileName(p.RelativePath), p)).ToList();
+						Select(p => new TokeiTuple<string, string, TEntry>(GrfPath.GetDirectoryName(p.RelativePath), Path.GetFileName(p.RelativePath), p)).ToList();
 					_hasBeenModified = false;
 				}
 				return _fastTupleAccessEntries;
