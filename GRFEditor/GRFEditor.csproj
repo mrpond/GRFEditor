@@ -536,7 +536,6 @@
     <None Include="Files\rgz.ico" />
     <None Include="Files\TokeiLibrary.dll" />
     <None Include="Files\Utilities.dll" />
-    <None Include="Files\zlib.net.dll" />
     <EmbeddedResource Include="Resources\add.ico" />
     <Resource Include="Resources\add.png" />
     <Resource Include="Resources\app.ico" />
@@ -678,7 +677,6 @@
     <EmbeddedResource Include="Files\Compressed\Gif.Components.dll" />
     <EmbeddedResource Include="Files\Compressed\ICSharpCode.AvalonEdit.dll" />
     <EmbeddedResource Include="Files\Compressed\XDMessaging.dll" />
-    <EmbeddedResource Include="Files\Compressed\zlib.net.dll" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Files\Be.Windows.Forms.HexBox.dll" />

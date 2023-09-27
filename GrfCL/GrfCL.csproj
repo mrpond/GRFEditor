@@ -112,9 +112,6 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Files\zlib.net.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Files\ErrorManager.dll" />
     <EmbeddedResource Include="Files\GRF.dll" />
     <EmbeddedResource Include="Files\Utilities.dll" />
